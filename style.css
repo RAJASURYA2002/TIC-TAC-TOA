@@ -43,5 +43,12 @@ margin-top: 15%;
     border-bottom-right-radius: 20px;
 }
 img{
-    background-color: transpare  height: 20px;
+   background-color: transparent;
+}
+.img_1
+{
+    margin-top: 13px;
+    margin-left: 13px;
+    width: 100px;
+    height: 100px;
 }
