@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&display=swap');
 *{
     margin: 0;
     padding: 0;
@@ -54,4 +55,31 @@ img{
     margin-left: 13px;
     width: 100px;
     height: 100px;
+}
+
+.winlist
+{
+    position: absolute;
+    border: 5px solid ;
+    width: 300px;
+    height: 300px;
+    top: 0;
+    left: 40%;
+    top: 37%;
+    background-color: black;
+}
+.img_3{
+    width: 170px;
+    height: 170px;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-left: 60px;
+}
+.win
+{
+    font-family: 'Roboto Slab', serif;
+    text-align: center;
+    background-color: transparent;
+    font-size: 40px;
+    color:lawngreen;
 }
