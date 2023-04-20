@@ -1,18 +1,51 @@
 "use strict";
+
+//API Connection///
+/////////////////////////////////////////////////////////////////////////
+const firebaseConfig = {
+  apiKey: "AIzaSyCTxhogyPrRrpiRcxvTabvfOeD84EUXk-k",
+  authDomain: "tictactoe-59275.firebaseapp.com",
+  databaseURL: "https://tictactoe-59275-default-rtdb.firebaseio.com",
+  projectId: "tictactoe-59275",
+  storageBucket: "tictactoe-59275.appspot.com",
+  messagingSenderId: "913472511152",
+  appId: "1:913472511152:web:693a6d14dca4881adfef75"
+};
+firebase.initializeApp(firebaseConfig);
+var formdb = firebase.database().ref("User Control");
+/////////////////////////////////////////////////////////////////////////
+//Html Class--------------------------------------------------
 const gameContainer = document.querySelector(".game_container");
 const box = document.querySelector(".small_box_container");
 const winListBox = document.querySelector(".winlist");
+//----------------------------------------------------
 //global declare//
 let userClick = 1;
-let clickCheck = [];
 const winCheckP1 = [];
 const winCheckP2 = [];
+let arr=[0];
 //function//
-//add image
+
+//add image---------------------------------------
+const addImageStore=function(x,y)
+{
+  formdb.update({
+    userArrayx:arr,
+    userArrayy:[1]
+}).then(function() {
+  // Update successful
+}).catch(function(error) {
+  // An error occurred
+});  
+}
 const addImage = function (x, y) {
   const img = document.querySelector(`.img_${x}_${y}`);
   img.classList.remove("display");
 };
+// addImageStore();
+// --------------------------------------------------
+
+//WinListCheck------------------------------------
 const winCheck = function (userList, x) {
   console.log(userList);
   const valuesToCheck1 = ["1", "2", "3"];
@@ -41,38 +74,31 @@ const winCheck = function (userList, x) {
     result7 === true ||
     result8 === true
   ) {
-    // console.log(x);
     winList(x);
   }
 };
+// ---------------------------------------
+
+//winListDisplay----------------------
 const winList = function (x) {
   console.log(x);
   winListBox.classList.remove("display");
   gameContainer.classList.add("display");
   const img = document.querySelector(`.img_3`);
   img.src = `/image/${x}.png`;
-  // console.log(img);
-  // img.classList.remove("display");
 };
+// ----------------------------------------------
+
+//AddEventListener--------------------------------
 gameContainer.addEventListener("click", function (e) {
   e.preventDefault();
   const clicked = e.target.closest(".box");
   let n = clicked.dataset.set;
-
+  clicked.dataset.set = "22";
   if (userClick === 1) {
-    let c = 0;
     userClick = 2;
-    let a = n + 1;
-    let b = n + 2;
-    clickCheck.forEach((mov) => {
-      if (a === mov || b === mov) {
-        c = 1;
-      }
-    });
-    if (c === 0) {
+    if (n != "22") {
       addImage(n, 1);
-      clickCheck.push(a);
-      clickCheck.push(b);
       winCheckP1.push(n);
       winCheck(winCheckP1, 1);
     } else {
@@ -82,19 +108,9 @@ gameContainer.addEventListener("click", function (e) {
     return;
   }
   if (userClick === 2) {
-    let c = 0;
     userClick = 1;
-    let a = n + 1;
-    let b = n + 2;
-    clickCheck.forEach((mov) => {
-      if (a === mov || b === mov) {
-        c = 1;
-      }
-    });
-    if (c === 0) {
+    if (n !== "22") {
       addImage(n, 2);
-      clickCheck.push(a);
-      clickCheck.push(b);
       winCheckP2.push(n);
       winCheck(winCheckP2, 2);
     } else {
@@ -104,3 +120,26 @@ gameContainer.addEventListener("click", function (e) {
     return;
   }
 });
+//-----------------------------------------------
+
+//--------------powerTool---------------------
+// setInterval(function(){
+//   location.reload();
+// }, 5000);
+// -----------------------------------------------
+//checking------------------\var newContactForm = formdb.push();
+const check=document.querySelector('.check');
+check.addEventListener('click',function(){
+  // var newContactForm = formdb.push();
+  //   newContactForm.set({
+  //     userArray:arr,
+  //   });
+  addImageStore();
+  })
+  formdb.on("value", function (snapshot) {
+    snapshot.forEach(function (element) {
+      //  element.val().userArrayx.push(20);
+       console.log(element.val());
+    });
+  });
+
